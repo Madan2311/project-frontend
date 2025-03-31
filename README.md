@@ -8,7 +8,7 @@ Este repositorio contiene la parte frontend del sistema de gestión logística. 
 
 - [Descripción](#descripción)
 - [Tecnologías](#tecnologías)
-- [Instalación y Configuración](#instalación-y-configuración)
+- [Pasos de Instalación](#instalación-y-configuración)
 - [Ejecución](#ejecución)
 ---
 
@@ -39,11 +39,11 @@ La comunicación con el backend se realiza mediante API REST para la mayoría de
 
 1. **Clona el repositorio:**
 
-   git clone https://github.com/tuusuario/project-frontend.git
+   git clone https://github.com/Madan2311/project-frontend.git
    cd project-frontend
 
 2. **Instala dependendias:**
    npm install
 
-3. **Sube frontend:**
+### Ejecución
    npm run dev
