@@ -69,7 +69,6 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  // Menú lateral
   const drawer = (
     <Box sx={{ height: '100%', backgroundColor: '#fff' }}>
       <Toolbar>
@@ -162,7 +161,6 @@ const Dashboard: React.FC = () => {
         <ListItem disablePadding>
           <ListItemButton onClick={logout}>
             <ListItemIcon>
-              {/* Podrías usar un icono de logout */}
               <LocalShipping color="primary" />
             </ListItemIcon>
             <ListItemText primary="Logout" />
@@ -174,7 +172,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {/* Barra Superior */}
       <AppBar
         position="fixed"
         sx={{
@@ -200,7 +197,6 @@ const Dashboard: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Menú Lateral (Drawer) */}
       <Box
         component="nav"
         sx={{
@@ -209,12 +205,11 @@ const Dashboard: React.FC = () => {
         }}
         aria-label="menu"
       >
-        {/* Drawer para pantallas pequeñas (temporary) */}
         <Drawer
           variant={isSmallScreen ? 'temporary' : 'permanent'}
           open={isSmallScreen ? mobileOpen : true}
           onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }} // mejora el rendimiento en mobile
+          ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: 'block', sm: 'block' },
             '& .MuiDrawer-paper': {
@@ -228,7 +223,6 @@ const Dashboard: React.FC = () => {
         </Drawer>
       </Box>
 
-      {/* Contenido Principal */}
       <Box
         component="main"
         sx={{

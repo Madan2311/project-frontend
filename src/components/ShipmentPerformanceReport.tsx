@@ -51,7 +51,6 @@ const ShipmentPerformanceReport: React.FC = () => {
             if (carrier) {
                 url += `&carrier=${encodeURIComponent(carrier)}&page=1&pageSize=10`;
             }
-            // Opcional: podrías agregar paginación, etc.
             const res = await fetch(url, {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -78,7 +77,6 @@ const ShipmentPerformanceReport: React.FC = () => {
     };
 
     useEffect(() => {
-        // Puedes cargar el reporte al inicio o cuando se haga clic en "Buscar"
         fetchReport();
         fetchCarriers();
     }, []);
@@ -98,7 +96,6 @@ const ShipmentPerformanceReport: React.FC = () => {
                 Reporte de Desempeño de Envíos
             </Typography>
 
-            {/* Filtros */}
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 3 }}>
                 <TextField
                     label="Fecha Inicio"
@@ -124,7 +121,6 @@ const ShipmentPerformanceReport: React.FC = () => {
                         onChange={(e) => setCarrier(e.target.value)}
                     >
                         <MenuItem value=""><em>Todos</em></MenuItem>
-                        {/* Aquí podrías mapear una lista de transportistas disponibles */}
                         {carriers.map(c => (
                             <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>
                         ))}
@@ -135,7 +131,6 @@ const ShipmentPerformanceReport: React.FC = () => {
                 </Button>
             </Box>
 
-            {/* Tabla de Reportes */}
             <TableContainer component={Paper} sx={{ mb: 4 }}>
                 <Table>
                     <TableHead>
@@ -161,7 +156,6 @@ const ShipmentPerformanceReport: React.FC = () => {
                 </Table>
             </TableContainer>
 
-            {/* Gráfico Interactivo */}
             <Paper sx={{ p: 2, mb: 4 }}>
                 <Typography variant="h6" gutterBottom>
                     Gráfico de Desempeño

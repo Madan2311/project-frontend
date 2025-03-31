@@ -17,7 +17,6 @@ const ShipmentStatusTracker: React.FC<ShipmentStatusTrackerProps> = ({ shipmentI
   const [notFound, setNotFound] = useState(false);
   const token = localStorage.getItem('token');
 
-  // 1) Cargar el estado actual e historial
   const fetchShipmentStatus = async () => {
     try {
       const res = await fetch(`http://localhost:3000/api/shipments/${shipmentId}/status`, {
@@ -29,7 +28,6 @@ const ShipmentStatusTracker: React.FC<ShipmentStatusTrackerProps> = ({ shipmentI
       });
       const data = await res.json();
       if (res.ok) {
-        // Si currentStatus es "Unknown", asumimos que no existe el envío
         if (data.currentStatus === "Unknown") {
           setNotFound(true);
           setCurrentStatus("Unknown");
@@ -48,16 +46,12 @@ const ShipmentStatusTracker: React.FC<ShipmentStatusTrackerProps> = ({ shipmentI
     }
   };
 
-  // 2) Suscripción a Socket.io
   useEffect(() => {
-    // Llamamos a la API para el estado inicial
     fetchShipmentStatus();
 
-    // Suscripción al room
     console.log("Emitiendo subscribeShipment con ID:", shipmentId);
     socket.emit("subscribeShipment", shipmentId);
 
-    // Escuchamos eventos de actualización
     socket.on("shipmentStatusUpdated", (data: { shipmentId: number; newStatus: string }) => {
       if (data.shipmentId === shipmentId) {
         console.log("Recibido evento shipmentStatusUpdated:", data);

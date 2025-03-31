@@ -23,7 +23,6 @@ interface Shipment {
     id: number;
     address: string;
     status: string;
-    // otros campos opcionales...
 }
 
 const ShipmentListSection: React.FC = () => {
@@ -37,7 +36,6 @@ const ShipmentListSection: React.FC = () => {
 
     const token = localStorage.getItem('token');
 
-    // Función para obtener envíos, opcionalmente filtrados
     const fetchShipments = async (status: string) => {
         try {
             let url = 'http://localhost:3000/api/shipments';
@@ -65,7 +63,6 @@ const ShipmentListSection: React.FC = () => {
         setSnackbar({ ...snackbar, open: false });
     };
 
-    // Función para actualizar el estado a "entregado"
     const handleMarkDelivered = async (shipmentId: number) => {
         try {
             const res = await fetch(`http://localhost:3000/api/shipments/${shipmentId}/status`, {

@@ -25,7 +25,7 @@ interface Shipment {
   status: string;
   route?: string;
   carrier?: string;
-  vehicle?: string; // Representa la placa del vehículo
+  vehicle?: string;
 }
 
 interface RouteData {
@@ -46,7 +46,6 @@ interface VehicleData {
 }
 
 const ShipmentAssignmentSection: React.FC = () => {
-  // Solo cargamos envíos en estado "Pending"
   const [shipments, setShipments] = useState<Shipment[]>([]);
   const [routes, setRoutes] = useState<RouteData[]>([]);
   const [carriers, setCarriers] = useState<CarrierData[]>([]);
@@ -58,9 +57,7 @@ const ShipmentAssignmentSection: React.FC = () => {
   });
   
   const token = localStorage.getItem('token');
-  const fixedStatus = "Pending"; // Fijo para esta sección
-
-  // Obtener solo envíos pendientes
+  const fixedStatus = "Pending";
   const fetchShipments = async (status: string) => {
     try {
       const url = `http://localhost:3000/api/shipments?status=${encodeURIComponent(status)}`;
@@ -76,7 +73,6 @@ const ShipmentAssignmentSection: React.FC = () => {
     }
   };
 
-  // Cargar rutas, carriers y vehículos (todos)
   const fetchRoutes = async () => {
     try {
       const res = await fetch('http://localhost:3000/api/routes', { headers: { Authorization: `Bearer ${token}` } });
@@ -122,7 +118,6 @@ const ShipmentAssignmentSection: React.FC = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  // Funciones para actualizar localmente los campos en un envío
   const handleRouteChange = (shipmentId: number, newRoute: string) => {
     setShipments(prev => prev.map(s => s.id === shipmentId ? { ...s, route: newRoute } : s));
   };
@@ -133,7 +128,6 @@ const ShipmentAssignmentSection: React.FC = () => {
     setShipments(prev => prev.map(s => s.id === shipmentId ? { ...s, vehicle: newVehiclePlate } : s));
   };
 
-  // Función para enviar la asignación: actualiza la base de datos y emite el evento vía Socket.io
   const handleAssign = async (shipmentId: number, route: string, carrier: string, vehiclePlate: string) => {
     if (!route || !carrier || !vehiclePlate) {
       setSnackbar({ open: true, message: 'Route, Carrier and Vehicle are required.', severity: 'warning' });
@@ -146,13 +140,12 @@ const ShipmentAssignmentSection: React.FC = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        // Se envía el campo vehicle con la placa
         body: JSON.stringify({ shipmentId, route, carrier, vehicle: vehiclePlate }),
       });
       const data = await res.json();
       if (res.ok) {
         setSnackbar({ open: true, message: 'Shipment assigned successfully', severity: 'success' });
-        fetchShipments(fixedStatus); // Recargar lista actualizada
+        fetchShipments(fixedStatus);
       } else {
         setSnackbar({ open: true, message: data.error || 'Error assigning shipment', severity: 'error' });
       }
@@ -184,7 +177,6 @@ const ShipmentAssignmentSection: React.FC = () => {
                 <TableCell>{shipment.id}</TableCell>
                 <TableCell>{shipment.address}</TableCell>
 
-                {/* Selector de Route */}
                 <TableCell>
                   <FormControl fullWidth size="small">
                     <InputLabel>Route</InputLabel>
@@ -201,7 +193,6 @@ const ShipmentAssignmentSection: React.FC = () => {
                   </FormControl>
                 </TableCell>
 
-                {/* Selector de Carrier */}
                 <TableCell>
                   <FormControl fullWidth size="small">
                     <InputLabel>Carrier</InputLabel>
@@ -218,7 +209,6 @@ const ShipmentAssignmentSection: React.FC = () => {
                   </FormControl>
                 </TableCell>
 
-                {/* Selector de Vehicle */}
                 <TableCell>
                   <FormControl fullWidth size="small">
                     <InputLabel>Vehicle</InputLabel>

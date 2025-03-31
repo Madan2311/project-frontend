@@ -1,4 +1,3 @@
-// src/pages/Admin/RoutesSection.tsx
 import React, { useEffect, useState } from 'react';
 import {
   Container,
@@ -41,7 +40,6 @@ const RoutesSection: React.FC = () => {
   });
   const token = localStorage.getItem('token');
 
-  // Función para obtener rutas
   const fetchRoutesData = async () => {
     try {
       const res = await fetch('http://localhost:3000/api/routes', {
@@ -62,7 +60,6 @@ const RoutesSection: React.FC = () => {
     fetchRoutesData();
   }, [token]);
 
-  // Función para manejar el cambio en el formulario de nuevo registro
   const handleNewRouteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewRoute({
       ...newRoute,
@@ -70,9 +67,7 @@ const RoutesSection: React.FC = () => {
     });
   };
 
-  // Función para guardar la nueva ruta
   const handleAddRoute = async () => {
-    // Validación básica
     if (!newRoute.name || !newRoute.origin || !newRoute.destination) {
       setSnackbar({ open: true, message: 'Name, Origin, and Destination are required.', severity: 'warning' });
       return;
@@ -89,7 +84,6 @@ const RoutesSection: React.FC = () => {
       const data = await res.json();
       if (res.ok) {
         setSnackbar({ open: true, message: 'Route created successfully.', severity: 'success' });
-        // Actualizar la lista de rutas sin recargar la página
         setRoutes(prev => [...prev, { id: data.result.insertId, ...newRoute }]);
         setNewRoute({ name: '', origin: '', destination: '', description: '' });
         setIsAdding(false);
@@ -126,7 +120,6 @@ const RoutesSection: React.FC = () => {
         )}
       </Box>
 
-      {/* Formulario para agregar nueva ruta */}
       {isAdding && (
         <Paper sx={{ p: 2, mb: 2 }}>
           <Typography variant="h6" gutterBottom>
@@ -179,7 +172,6 @@ const RoutesSection: React.FC = () => {
         </Paper>
       )}
 
-      {/* Tabla de rutas */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -205,7 +197,6 @@ const RoutesSection: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {/* Snackbar para notificaciones */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={3000}

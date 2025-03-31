@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Card, CardContent } from '@mui/material';
-import ShipmentStatusTracker from './ShipmentStatusTracker'; // Asegúrate de que la ruta sea correcta
+import ShipmentStatusTracker from './ShipmentStatusTracker';
 
 const ShipmentTrackingSection: React.FC = () => {
   const [shipmentId, setShipmentId] = useState<number | null>(null);
   const [inputId, setInputId] = useState("");
 
-  // Cuando el usuario presiona "Buscar", convertimos a número y seteamos shipmentId
-  // Esto hace que se re-renderice ShipmentStatusTracker
   const handleTrack = () => {
     const id = Number(inputId);
     if (id > 0) {
@@ -17,10 +15,9 @@ const ShipmentTrackingSection: React.FC = () => {
     }
   };
 
-  // Al cambiar el texto, limpiamos shipmentId para no mostrar datos previos
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputId(e.target.value);
-    setShipmentId(null); // Limpia la info previa
+    setShipmentId(null);
   };
 
   return (

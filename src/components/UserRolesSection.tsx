@@ -1,4 +1,3 @@
-// src/pages/Admin/UserRolesSection.tsx
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -34,7 +33,6 @@ const UserRolesSection: React.FC = () => {
   });
   const token = localStorage.getItem('token');
 
-  // Cargar la lista de usuarios del backend
   const fetchUsers = async () => {
     try {
       const res = await fetch('http://localhost:3000/api/users', {
@@ -55,14 +53,12 @@ const UserRolesSection: React.FC = () => {
     fetchUsers();
   }, [token]);
 
-  // Actualizar localmente el rol del usuario
   const handleRoleChange = (userId: number, newRole: string) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) => (user.id === userId ? { ...user, role: newRole } : user))
     );
   };
 
-  // Enviar la actualización al backend
   const handleUpdateRole = async (userId: number, role: string) => {
     try {
       const res = await fetch('http://localhost:3000/api/users/role', {
